@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Face Recognition System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>🔐 Voter FRS</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="register">Register</a></li>
+                <li><a href="#" class="nav-link" data-page="authenticate">Authenticate</a></li>
+                <li><a href="#" class="nav-link" data-page="dashboard">Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-page="about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+        
+        <!-- Home Page -->
+        <section id="home-page" class="page active">
+            <div class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Secure Voter Authentication System</h1>
+                        <p class="hero-subtitle">Advanced facial recognition technology ensuring secure and accurate voter verification with 95%+ accuracy rate.</p>
+                        <div class="hero-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">95%+</div>
+                                <div class="stat-label">Accuracy Rate</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">0.3s</div>
+                                <div class="stat-label">Recognition Time</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">System Uptime</div>
+                            </div>
+                        </div>
+                        <div class="hero-actions">
+                            <button class="btn btn--primary btn--lg" data-navigate="register">Register as Voter</button>
+                            <button class="btn btn--outline btn--lg" data-navigate="authenticate">Authenticate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <div class="container">
+                    <h2 class="section-title">System Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Secure Authentication</h3>
+                            <p>Advanced encryption and biometric verification ensure maximum security for voter data.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Real-time Processing</h3>
+                            <p>Lightning-fast face recognition with sub-second response times for efficient voting.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Analytics Dashboard</h3>
+                            <p>Comprehensive monitoring and reporting tools for election administrators.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌐</div>
+                            <h3>Cross-platform</h3>
+                            <p>Works seamlessly across desktop and mobile devices with responsive design.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Page -->
+        <section id="register-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Voter Registration</h1>
+                    <p>Register your face for secure authentication</p>
+                </div>
+                
+                <div class="registration-container">
+                    <div class="camera-section">
+                        <div class="camera-container">
+                            <video id="register-video" autoplay muted></video>
+                            <canvas id="register-canvas" class="overlay-canvas"></canvas>
+                            <div class="camera-overlay">
+                                <div class="face-detection-box" id="register-detection-box"></div>
+                            </div>
+                        </div>
+                        <div class="camera-controls">
+                            <button id="start-camera-btn" class="btn btn--primary">Start Camera</button>
+                            <button id="capture-face-btn" class="btn btn--secondary" disabled>Capture Face</button>
+                            <div id="capture-countdown" class="countdown hidden"></div>
+                        </div>
+                        <div id="camera-status" class="status-indicator"></div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <form id="registration-form" class="registration-form">
+                            <div class="form-group">
+                                <label class="form-label" for="voter-name">Full Name</label>
+                                <input type="text" id="voter-name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="voter-id">Voter ID</label>
+                                <input type="text" id="voter-id" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="voter-email">Email Address</label>
+                                <input type="email" id="voter-email" class="form-control" required>
+                            </div>
+                            
+                            <div class="captured-face-preview">
+                                <img id="captured-face-img" class="face-preview hidden" alt="Captured Face">
+                                <div id="face-quality-score" class="quality-score hidden"></div>
+                            </div>
+                            
+                            <button type="submit" id="submit-registration" class="btn btn--primary btn--full-width" disabled>Complete Registration</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authentication Page -->
+        <section id="authenticate-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Voter Authentication</h1>
+                    <p>Look into the camera for face recognition</p>
+                </div>
+                
+                <div class="auth-container">
+                    <div class="camera-section">
+                        <div class="camera-container">
+                            <video id="auth-video" autoplay muted></video>
+                            <canvas id="auth-canvas" class="overlay-canvas"></canvas>
+                            <div class="camera-overlay">
+                                <div class="face-detection-box" id="auth-detection-box"></div>
+                            </div>
+                        </div>
+                        <div class="camera-controls">
+                            <button id="start-auth-camera-btn" class="btn btn--primary">Start Authentication</button>
+                            <button id="authenticate-btn" class="btn btn--secondary" disabled>Authenticate</button>
+                        </div>
+                        <div id="auth-status" class="status-indicator"></div>
+                    </div>
+                    
+                    <div class="results-section">
+                        <div id="auth-results" class="auth-results hidden">
+                            <div class="result-card">
+                                <div id="auth-result-status" class="result-status"></div>
+                                <div id="confidence-score" class="confidence-score"></div>
+                                <div id="voter-details" class="voter-details hidden">
+                                    <h3>Voter Information</h3>
+                                    <div class="detail-item">
+                                        <span class="label">Name:</span>
+                                        <span id="authenticated-name" class="value"></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="label">ID:</span>
+                                        <span id="authenticated-id" class="value"></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="label">Registration Date:</span>
+                                        <span id="authenticated-date" class="value"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Page -->
+        <section id="dashboard-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>System Dashboard</h1>
+                    <p>Monitor system performance and voter statistics</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="stats-row">
+                        <div class="stat-card-large">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="total-voters">0</div>
+                                <div class="stat-label">Registered Voters</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-large">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="successful-auths">0</div>
+                                <div class="stat-label">Successful Authentications</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-large">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="system-accuracy">95.2%</div>
+                                <div class="stat-label">System Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-large">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="system-uptime">99.8%</div>
+                                <div class="stat-label">System Uptime</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-tables">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Recent Authentication Logs</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="table-container">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Timestamp</th>
+                                                <th>Voter Name</th>
+                                                <th>Result</th>
+                                                <th>Confidence</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="auth-logs-table">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Registered Voters</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="table-container">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Voter ID</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Status</th>
+                                                <th>Registration Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="voters-table">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>About the System</h1>
+                    <p>Technical specifications and system information</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>System Architecture</h3>
+                            <p>Our Voter Face Recognition System employs state-of-the-art deep learning algorithms and secure data management practices:</p>
+                            <ul>
+                                <li><strong>Frontend:</strong> Responsive web application with real-time webcam integration</li>
+                                <li><strong>Face Detection:</strong> Advanced computer vision for accurate face localization</li>
+                                <li><strong>Recognition Engine:</strong> Deep neural networks with 128-dimensional face embeddings</li>
+                                <li><strong>Security:</strong> End-to-end encryption for biometric data protection</li>
+                                <li><strong>Database:</strong> Secure cloud storage with real-time synchronization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Technical Specifications</h3>
+                            <div class="tech-specs">
+                                <div class="spec-item">
+                                    <span class="spec-label">Recognition Accuracy:</span>
+                                    <span class="spec-value">95%+</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Processing Time:</span>
+                                    <span class="spec-value">&lt; 300ms</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Supported Formats:</span>
+                                    <span class="spec-value">JPG, PNG, WebP</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Face Encoding Dimension:</span>
+                                    <span class="spec-value">128D Vector</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Maximum Face Size:</span>
+                                    <span class="spec-value">500x500 pixels</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Confidence Threshold:</span>
+                                    <span class="spec-value">85%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Security Features</h3>
+                            <ul>
+                                <li>🔐 AES-256 encryption for biometric data</li>
+                                <li>🛡️ Secure API endpoints with authentication</li>
+                                <li>📱 Multi-factor authentication support</li>
+                                <li>🔍 Real-time anomaly detection</li>
+                                <li>📊 Comprehensive audit logging</li>
+                                <li>⚡ Automatic threat response</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Processing...</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
